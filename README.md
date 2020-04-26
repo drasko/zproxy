@@ -1,5 +1,5 @@
 # zProxy
-MQTT proxy in [Zig][https://ziglang.org/]
+MQTT proxy in [Zig](https://ziglang.org/)
 
 ## Install
 ```bash
