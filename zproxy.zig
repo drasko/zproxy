@@ -44,12 +44,8 @@ const Client = struct {
 };
 
 fn pipe(in: std.fs.File, out: std.fs.File) !void {
-    std.debug.warn("HELLO\n", .{});
-
     var buf = std.fifo.LinearFifo(u8, .{.Static = 4096}).init();
     while (true) {
-        std.debug.warn("Enter while\n", .{});
-
         const bytes_read = try in.read(buf.writableSlice(0));
         std.debug.warn("Read {} bytes\n", .{bytes_read});
         if (bytes_read == 0 and buf.readableLength() == 0) {
@@ -59,7 +55,6 @@ fn pipe(in: std.fs.File, out: std.fs.File) !void {
         buf.update(bytes_read);
 
         const bytes_written = try out.write(buf.readableSlice(0));
-        std.debug.warn("Wrote {} bytes\n", .{bytes_written});
         buf.discard(bytes_written);
     }
 }
