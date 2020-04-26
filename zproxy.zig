@@ -24,7 +24,7 @@ const Client = struct {
     handle_frame: @Frame(handle),
 
     fn handle(self: *Client) !void {
-        // Close connection once we are donw with it
+        // Close connection once we are done with it
         defer self.conn.file.close();
 
         // Open TCP socket towards MQTT borker
@@ -47,7 +47,6 @@ fn pipe(in: std.fs.File, out: std.fs.File) !void {
     var buf = std.fifo.LinearFifo(u8, .{.Static = 4096}).init();
     while (true) {
         const bytes_read = try in.read(buf.writableSlice(0));
-        std.debug.warn("Read {} bytes\n", .{bytes_read});
         if (bytes_read == 0 and buf.readableLength() == 0) {
             // EOF + all written out
             break;
